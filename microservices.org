@@ -1,0 +1,86 @@
+* Golang / TGS / Microservices at Umbel
+** Golang
+*** Language features
+**** Concurrency
+**** Types
+**** Compile-Time Errors
+*** Advantages
+**** Less resources
+**** Easier to reason about
+**** Many fewer runtime errors
+*** Disadvantages
+**** No REPL
+**** Less mature community
+**** Compiling instead of just running the source (this could be advantage or disadvantage)
+** TGS in Golang
+*** Old TGS
+**** Python
+**** Architecture
+*** Reasons golang is good for TGS
+**** long-running process instead of cron?
+**** concurrent workers
+*** New TGS architecture
+**** Differences besides language between python and go versions
+** Microservices
+*** What is a microservice
+**** Self-contained service for accomplishing a single task
+*** Advantages
+**** Faster development life cycle
+**** Less scary deployments
+**** Changes are easier if communication contracts are obeyed
+**** More resilient infrastructure
+*** Disadvantages
+**** Easier to duplicate code
+**** Serialization becomes the bottleneck
+**** What do you do if a required service down
+*** Interfaces
+**** Contracts of communication between microservices
+** Docker
+*** What is containerization?
+**** Containing an app and all system dependencies in a binary distribution
+**** Think compiled version of app and all system deps
+*** Advantages
+**** Dependency management
+**** Deployment
+**** Consistency
+*** Disadvantages
+**** Learning curve
+**** Less access to running processes
+*** Containers at Umbel
+**** UI
+**** Docs
+**** Umbelmania
+**** Umbel Marketing Site (www)
+**** TGS
+**** Umbel Labs
+** ECS
+*** What does ECS give us
+**** Scheduler
+**** Resource tracking
+*** Alternatives
+**** Kubernetes
+**** Mesos
+**** Docker Swarm
+*** Why we use ECS instead of alternatives
+**** Autoscale
+**** IAM
+** TGS as a Microservice
+*** Development
+*** Deployment
+*** Scaling
+** Future of microservices at Umbel
+*** API for provisioning services
+**** Devs should be able to provision a new:
+***** Cron
+***** Site
+***** Service
+**** Devs should be able to run one off commands in a container in production
+**** Access log streams and metrics
+*** Formal contracts for communication between microservices
+**** This is a requirement for microservices to work
+*** Development moves faster
+**** Ops will become less of a blocker
+**** The power to provision services should be in the hands of those that know the services (devs)
+*** Infrastructure will be more resilient
+**** Scaling will be per service, so we can grow and shrink the things we need to and not the things we don't
+**** Goal: Throughput doesn't go down when bandwidth does
