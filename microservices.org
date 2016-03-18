@@ -28,22 +28,6 @@
 **** concurrent workers
 *** New TGS architecture
 **** Tiles which have changed and may require re-sorting get pushed to Redis set (The Aggregator)
-
-** Microservices
-*** What is a microservice
-**** Self-contained service for accomplishing a single task
-*** Advantages
-**** Faster development life cycle
-**** Less scary deployments
-**** Changes are easier if communication contracts are obeyed
-**** More resilient infrastructure
-*** Disadvantages
-**** Easier to duplicate code
-**** Overall complexity is generally higher
-**** Serialization becomes the bottleneck
-**** What do you do if a required service down
-*** Interfaces
-**** Contracts of communication between microservices
 ** Docker
 *** What is containerization?
 **** Containing an app and all system dependencies in a binary distribution
@@ -73,13 +57,29 @@
 *** Why we use ECS instead of alternatives
 **** Autoscale
 **** IAM
+
+** Microservices
+*** What is a microservice
+**** Self-contained service for accomplishing a single task
+*** Advantages
+**** Faster development life cycle
+**** Less scary deployments
+**** Changes are easier if communication contracts are obeyed
+**** More resilient infrastructure
+*** Disadvantages
+**** Easier to duplicate code
+**** Overall complexity is generally higher
+**** Serialization becomes the bottleneck
+**** What do you do if a required service down
+*** Interfaces
+**** Contracts of communication between microservices
 ** TGS as a Microservice
 *** Development
 **** Test suite runs in seconds instead of minutes.
 *** Deployment
 **** Just tag and push code.
 *** Scaling
-**** Just add more instances
+**** Just add more instances. As we build new services, this should be a key design consideration.
 ** Future of microservices at Umbel
 *** API for provisioning services
 **** Devs should be able to provision a new:
@@ -106,3 +106,10 @@
 *** Internal Auth
 **** Let's try to avoid it...
 *** Versioning service contracts/interfaces (so we can do independent deploys)
+* Notes
+** Let's focus a bit.
+Let's spend less time on tools and more on the hard problems. Quick overview of
+Go, containers. A little more on ECS and how we're doing microservice
+deployments right now, what issues did we encoutner setting this up? More time
+on how we can prevent microservices from becoming an evil spiderweb of
+complexity. Contracts, versioning, data access, etc.
