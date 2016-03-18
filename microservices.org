@@ -4,23 +4,31 @@
 **** Concurrency
 **** Types
 **** Compile-Time Errors
-*** Advantages
+** Advantages
 **** Less resources
 **** Easier to reason about
 **** Many fewer runtime errors
+**** Very consistent easy to read code - esp. in larger projects
+**** So fast
+**** Simple
+**** Awesome Tooling
 *** Disadvantages
 **** No REPL
 **** Less mature community
 **** Compiling instead of just running the source (this could be advantage or disadvantage)
+**** More verbose than Python for some simple things.
 ** TGS in Golang
 *** Old TGS
 **** Python
 **** Architecture
 *** Reasons golang is good for TGS
-**** long-running process instead of cron?
+**** TGS is fairly resource intensive, so being efficient is helpful.
+***** we went from 6-7 m3.larges to 1.5
+**** TGS accesses many different data stores - having easy concurrency really helps speed this up while keeping code readable.
 **** concurrent workers
 *** New TGS architecture
-**** Differences besides language between python and go versions
+**** Tiles which have changed and may require re-sorting get pushed to Redis set (The Aggregator)
+
 ** Microservices
 *** What is a microservice
 **** Self-contained service for accomplishing a single task
@@ -31,6 +39,7 @@
 **** More resilient infrastructure
 *** Disadvantages
 **** Easier to duplicate code
+**** Overall complexity is generally higher
 **** Serialization becomes the bottleneck
 **** What do you do if a required service down
 *** Interfaces
@@ -66,8 +75,11 @@
 **** IAM
 ** TGS as a Microservice
 *** Development
+**** Test suite runs in seconds instead of minutes.
 *** Deployment
+**** Just tag and push code.
 *** Scaling
+**** Just add more instances
 ** Future of microservices at Umbel
 *** API for provisioning services
 **** Devs should be able to provision a new:
@@ -84,3 +96,13 @@
 *** Infrastructure will be more resilient
 **** Scaling will be per service, so we can grow and shrink the things we need to and not the things we don't
 **** Goal: Throughput doesn't go down when bandwidth does
+** Things we still need to figure out
+*** Panics/tracebacks
+**** Currently we have logs in kibana, but long tracebacks get jumbled. Need a Sentry solution.
+*** Sharing datastores between services.
+**** Good idea, bad idea? (opinion: bad idea)
+**** TGS currently shares lots of data stores, how do we make this cleaner?
+*** Queueing fabric between services
+*** Internal Auth
+**** Let's try to avoid it...
+*** Versioning service contracts/interfaces (so we can do independent deploys)
