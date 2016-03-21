@@ -1,64 +1,6 @@
 * Golang / TGS / Microservices at Umbel
-** Golang
-*** Language features
-**** Concurrency
-**** Types
-**** Compile-Time Errors
-** Advantages
-**** Less resources
-**** Easier to reason about
-**** Many fewer runtime errors
-**** Very consistent easy to read code - esp. in larger projects
-**** So fast
-**** Simple
-**** Awesome Tooling
-*** Disadvantages
-**** No REPL
-**** Less mature community
-**** Compiling instead of just running the source (this could be advantage or disadvantage)
-**** More verbose than Python for some simple things.
-** TGS in Golang
-*** Old TGS
-**** Python
-**** Architecture
-*** Reasons golang is good for TGS
-**** TGS is fairly resource intensive, so being efficient is helpful.
-***** we went from 6-7 m3.larges to 1.5
-**** TGS accesses many different data stores - having easy concurrency really helps speed this up while keeping code readable.
-**** concurrent workers
-*** New TGS architecture
-**** Tiles which have changed and may require re-sorting get pushed to Redis set (The Aggregator)
-** Docker
-*** What is containerization?
-**** Containing an app and all system dependencies in a binary distribution
-**** Think compiled version of app and all system deps
-*** Advantages
-**** Dependency management
-**** Deployment
-**** Consistency
-*** Disadvantages
-**** Learning curve
-**** Less access to running processes
-*** Containers at Umbel
-**** UI
-**** Docs
-**** Umbelmania
-**** Umbel Marketing Site (www)
-**** TGS
-**** Umbel Labs
-** ECS
-*** What does ECS give us
-**** Scheduler
-**** Resource tracking
-*** Alternatives
-**** Kubernetes
-**** Mesos
-**** Docker Swarm
-*** Why we use ECS instead of alternatives
-**** Autoscale
-**** IAM
 
-** Microservices
+** Microservices - Charlie
 *** What is a microservice
 **** Self-contained service for accomplishing a single task
 *** Advantages
@@ -73,43 +15,93 @@
 **** What do you do if a required service down
 *** Interfaces
 **** Contracts of communication between microservices
-** TGS as a Microservice
+** Docker - Charlie
+*** What is containerization?
+**** Containing an app and all system dependencies in a binary distribution
+**** Think compiled version of app and all system deps
+*** Advantages
+**** Dependency management
+**** Deployment
+**** Consistency
+*** Disadvantages
+**** Learning curve
+**** Less access to running processes
+** ECS - Charlie
+*** What does ECS give us
+**** Scheduler
+**** Resource tracking
+*** Alternatives
+**** Kubernetes
+**** Mesos
+**** Docker Swarm
+*** Why we use ECS instead of alternatives
+**** Autoscale
+**** IAM
+*** Containers at Umbel
+**** UI
+**** Docs
+**** Umbelmania
+**** Umbel Marketing Site (www)
+**** TGS
+**** Umbel Labs
+
+** TGS in Golang - Jaffee
+
+*** Old TGS
+**** Python
+**** Architecture
+*** Reasons golang is good for TGS
+**** TGS is fairly resource intensive, so being efficient is helpful.
+***** we went from 6-7 m3.larges to 1.5
+**** TGS accesses many different data stores - having easy concurrency really helps speed this up while keeping code readable.
+**** concurrent workers
+*** New TGS architecture
+**** Tiles which have changed and may require re-sorting get pushed to Redis set (The Aggregator)
+*** Golang
+**** Language features
+***** Concurrency
+***** Types
+***** Compile-Time Errors
+**** Advantages
+***** Less resources
+***** Easier to reason about
+***** Many fewer runtime errors
+***** Very consistent easy to read code - esp. in larger projects
+***** So fast
+***** Simple
+***** Awesome Tooling
+**** Disadvantages
+***** No REPL
+***** Less mature community
+***** Compiling instead of just running the source (this could be advantage or disadvantage)
+***** More verbose than Python for some simple things.
+** TGS as a Microservice - Jaffee
+*** It isn't. But it's getting there.
+**** Shares datastores with other services without an explicit contract.
+**** pass more data to it instead of relying on it looking it up.
 *** Development
 **** Test suite runs in seconds instead of minutes.
 *** Deployment
 **** Just tag and push code.
+**** Decoupled from anything else.
 *** Scaling
 **** Just add more instances. As we build new services, this should be a key design consideration.
-** Future of microservices at Umbel
-*** API for provisioning services
+
+
+** Future of microservices at Umbel 
+*** API for provisioning services - Charlie
 **** Devs should be able to provision a new:
 ***** Cron
 ***** Site
 ***** Service
 **** Devs should be able to run one off commands in a container in production
 **** Access log streams and metrics
-*** Formal contracts for communication between microservices
-**** This is a requirement for microservices to work
-*** Development moves faster
+*** The power to provision services should be in the hands of those that know the services (devs) - Charlie
 **** Ops will become less of a blocker
-**** The power to provision services should be in the hands of those that know the services (devs)
-*** Infrastructure will be more resilient
-**** Scaling will be per service, so we can grow and shrink the things we need to and not the things we don't
-**** Goal: Throughput doesn't go down when bandwidth does
-** Things we still need to figure out
-*** Panics/tracebacks
-**** Currently we have logs in kibana, but long tracebacks get jumbled. Need a Sentry solution.
-*** Sharing datastores between services.
-**** Good idea, bad idea? (opinion: bad idea)
-**** TGS currently shares lots of data stores, how do we make this cleaner?
-*** Queueing fabric between services
-*** Internal Auth
-**** Let's try to avoid it...
-*** Versioning service contracts/interfaces (so we can do independent deploys)
-* Notes
-** Let's focus a bit.
-Let's spend less time on tools and more on the hard problems. Quick overview of
-Go, containers. A little more on ECS and how we're doing microservice
-deployments right now, what issues did we encoutner setting this up? More time
-on how we can prevent microservices from becoming an evil spiderweb of
-complexity. Contracts, versioning, data access, etc.
+*** Logging - Charlie
+**** Currently we have logs in kibana, future: streaming? errors/tracebacks.
+*** Queueing fabric between services? - Jaffee
+**** kafka?
+*** Versioning service contracts/interfaces (so we can do independent deploys) - Jaffee
+**** maintaining back compatibility
+**** deprecating old versions - metrics
